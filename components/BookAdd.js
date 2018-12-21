@@ -61,10 +61,13 @@ export default class BookAdd extends React.Component {
   }
 }
 
+BookAdd.navigationOptions = {
+  title: 'Add Book',
+};
+
 const styles = StyleSheet.create({
   container: {
-    borderTopWidth: 1,
-    borderColor: '#666',
+    flex: 1,
     paddingTop: 20,
     padding: 10,
   },

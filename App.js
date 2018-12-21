@@ -1,28 +1,21 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
+import { createAppContainer } from 'react-navigation';
 
-import BookList from './components/BookList';
+import AppNavigator from './navigator';
 
 // Create the client as outlined in the setup guide
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
 });
 
+const AppContainer = createAppContainer(AppNavigator);
+
 const App = () => (
   <ApolloProvider client={client}>
-    <View style={styles.container}>
-      <BookList />
-    </View>
+    <AppContainer />
   </ApolloProvider>
 );
 
 export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#ebebeb',
-  },
-});

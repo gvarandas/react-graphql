@@ -1,48 +1,37 @@
 import React from 'react';
-import {
-  KeyboardAvoidingView,
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-} from 'react-native';
+import { View, StyleSheet, ScrollView, Button } from 'react-native';
 
 import BooksContainer from '../containers/BooksContainer';
 
-import BookAdd from './BookAdd';
 import BookRow from './BookRow';
 
-const BookList = () => (
+const BookList = ({ navigation }) => (
   <BooksContainer>
     {books => (
-      <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>BOOK LIST</Text>
-        </View>
+      <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.list}>
           {books.map(({ id, author, title }) => (
             <BookRow key={id} author={author} title={title} />
           ))}
         </ScrollView>
-        <BookAdd />
-      </KeyboardAvoidingView>
+        <View>
+          <Button
+            title="Add Book"
+            onPress={() => navigation.navigate('BookAdd')}
+          />
+        </View>
+      </View>
     )}
   </BooksContainer>
 );
 
+BookList.navigationOptions = {
+  title: 'Book List',
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  titleContainer: {
-    marginTop: 20,
-    padding: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
   },
   list: {
     flex: 1,

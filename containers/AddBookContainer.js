@@ -10,7 +10,7 @@ const AddBookContainer = ({ children }) => (
       const { books } = cache.readQuery({ query: GET_BOOKS });
       cache.writeQuery({
         query: GET_BOOKS,
-        data: { books: { addBook, ...books } },
+        data: { books: books.concat([addBook]) },
       });
     }}
   >
