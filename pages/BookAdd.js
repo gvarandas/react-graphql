@@ -20,13 +20,18 @@ export default class BookAdd extends React.Component {
     this.setState({ author });
   };
 
+  onChangeCover = cover => {
+    this.setState({ cover });
+  };
+
   onAddBook = addBookHandler => {
-    const { title, author } = this.state;
+    const { title, author, cover } = this.state;
     if (title && author) {
       addBookHandler({
         variables: {
           title,
           author,
+          cover,
         },
       });
       this.setState({
@@ -55,6 +60,13 @@ export default class BookAdd extends React.Component {
                 placeholder="book author"
                 value={this.state.author}
                 onChangeText={this.onChangeAuthor}
+              />
+            </View>
+            <View style={styles.inputContainer}>
+              <Input
+                placeholder="book cover"
+                value={this.state.cover}
+                onChangeText={this.onChangeCover}
               />
             </View>
             <Button
