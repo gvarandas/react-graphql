@@ -1,7 +1,10 @@
 import React from 'react';
-import { View, TextInput, Button, StyleSheet, Keyboard } from 'react-native';
+import { View, StyleSheet, Keyboard } from 'react-native';
 
 import AddBookContainer from '../containers/AddBookContainer';
+
+import Input from './Input';
+import Button from './Button';
 
 export default class BookAdd extends React.Component {
   state = {
@@ -17,43 +20,41 @@ export default class BookAdd extends React.Component {
     this.setState({ author });
   };
 
+  onAddBook = addBookHandler => {
+    addBookHandler({
+      variables: {
+        title: this.state.title,
+        author: this.state.author,
+      },
+    });
+    this.setState({
+      title: '',
+      author: '',
+    });
+    Keyboard.dismiss();
+    this.props.navigation.goBack();
+  };
+
   render() {
     return (
       <AddBookContainer>
         {addBook => (
           <View style={styles.container}>
             <View style={styles.inputContainer}>
-              <TextInput
-                placeholder="Title"
-                style={styles.input}
+              <Input
+                placeholder="book title"
                 value={this.state.title}
                 onChangeText={this.onChangeTitle}
               />
             </View>
             <View style={styles.inputContainer}>
-              <TextInput
-                placeholder="Author"
-                style={styles.input}
+              <Input
+                placeholder="book author"
                 value={this.state.author}
                 onChangeText={this.onChangeAuthor}
               />
             </View>
-            <Button
-              title="Add Book"
-              onPress={() => {
-                addBook({
-                  variables: {
-                    title: this.state.title,
-                    author: this.state.author,
-                  },
-                });
-                this.setState({
-                  title: '',
-                  author: '',
-                });
-                Keyboard.dismiss();
-              }}
-            />
+            <Button title="SAVE" onPress={() => this.onAddBook(addBook)} />
           </View>
         )}
       </AddBookContainer>
@@ -69,13 +70,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 20,
-    padding: 10,
   },
   inputContainer: {
     paddingTop: 10,
     paddingBottom: 10,
-  },
-  input: {
-    fontSize: 16,
   },
 });

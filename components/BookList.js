@@ -1,25 +1,27 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, Button } from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
 
 import BooksContainer from '../containers/BooksContainer';
 
 import BookRow from './BookRow';
+import Button from './Button';
 
 const BookList = ({ navigation }) => (
   <BooksContainer>
     {books => (
       <View style={styles.container}>
-        <ScrollView contentContainerStyle={styles.list}>
-          {books.map(({ id, author, title }) => (
+        <FlatList
+          data={books}
+          renderItem={({ item: { id, author, title } }) => (
             <BookRow key={id} author={author} title={title} />
-          ))}
-        </ScrollView>
-        <View>
-          <Button
-            title="Add Book"
-            onPress={() => navigation.navigate('BookAdd')}
-          />
-        </View>
+          )}
+          contentContainerStyle={styles.list}
+          keyExtractor={item => item.id}
+        />
+        <Button
+          title="ADD BOOK"
+          onPress={() => navigation.navigate('BookAdd')}
+        />
       </View>
     )}
   </BooksContainer>
@@ -34,7 +36,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   list: {
-    flex: 1,
     alignItems: 'stretch',
   },
 });
