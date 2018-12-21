@@ -5,7 +5,6 @@ import { createAppContainer } from 'react-navigation';
 
 import AppNavigator from './navigator';
 
-// Create the client as outlined in the setup guide
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
 });

@@ -3,8 +3,8 @@ import { View, StyleSheet, Keyboard } from 'react-native';
 
 import AddBookContainer from '../containers/AddBookContainer';
 
-import Input from './Input';
-import Button from './Button';
+import Input from '../components/Input';
+import Button from '../components/Button';
 
 export default class BookAdd extends React.Component {
   state = {
@@ -21,18 +21,21 @@ export default class BookAdd extends React.Component {
   };
 
   onAddBook = addBookHandler => {
-    addBookHandler({
-      variables: {
-        title: this.state.title,
-        author: this.state.author,
-      },
-    });
-    this.setState({
-      title: '',
-      author: '',
-    });
-    Keyboard.dismiss();
-    this.props.navigation.goBack();
+    const { title, author } = this.state;
+    if (title && author) {
+      addBookHandler({
+        variables: {
+          title,
+          author,
+        },
+      });
+      this.setState({
+        title: '',
+        author: '',
+      });
+      Keyboard.dismiss();
+      this.props.navigation.goBack();
+    }
   };
 
   render() {
@@ -54,7 +57,11 @@ export default class BookAdd extends React.Component {
                 onChangeText={this.onChangeAuthor}
               />
             </View>
-            <Button title="SAVE" onPress={() => this.onAddBook(addBook)} />
+            <Button
+              title="SAVE"
+              onPress={() => this.onAddBook(addBook)}
+              disabled={!(this.state.title && this.state.author)}
+            />
           </View>
         )}
       </AddBookContainer>

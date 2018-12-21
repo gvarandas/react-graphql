@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const BookRow = ({ title, author }) => (
-  <View style={styles.row}>
-    <Text style={styles.title}>{title}</Text>
-    <Text style={styles.author}>by {author}</Text>
-  </View>
+const BookRow = ({ title, author, onPress }) => (
+  <TouchableOpacity onPress={onPress} activeOpacity={0.4}>
+    <View style={styles.row}>
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.author}>by {author}</Text>
+    </View>
+  </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({
