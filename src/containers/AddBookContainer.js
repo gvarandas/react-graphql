@@ -1,7 +1,7 @@
 import React from 'react';
 import { Mutation } from 'react-apollo';
 
-import { GET_BOOKS, ADD_BOOK } from '../queries';
+import { GET_BOOKS, ADD_BOOK } from '../../queries';
 
 const AddBookContainer = ({ children }) => (
   <Mutation
